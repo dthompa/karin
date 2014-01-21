@@ -4,10 +4,32 @@ Lydia, a PHP-based, MVC-inspired CMF
 This project is used while teaching advanced PHP-programming with Model View Controller (MVC)
 frameworks with a taste of Content Management Framework (CMF). 
 
-Material below is mainly in swedish.
+Material in below links are mainly in swedish.
 
 * http://dbwebb.se/lydia/current (try out the code)
 * http://dbwebb.se/f/123 (forum with some tutorials on how the code was built, only in swedish)
+
+
+License
+-------
+
+Lydia is licenses according to MIT-license. 
+Any included external modules are subject to their own licensing.
+
+
+Use of external libraries
+-----------------------------------
+
+Lydia uses external libraries for state of the art samples. Any external module can be replaced or
+removed for less features but without disturbing the Lydia core functionality.
+
+The following external modules exists.
+
+HTMLPurifier by Edward Z. Yang to filter & format HTML.
+Website: http://htmlpurifier.org/ 
+License: LGPL
+Lydia path: `src/CHTMLPurifier`
+Used by: `CMContent`
 
 
 History
@@ -16,6 +38,38 @@ History
 Todo.
 
 * Yes, a lot of things to do.
+
+
+v0.2.15 (2012-04-16)
+
+* Added filter to format `CMContent` as 'htmlpurify' using http://htmlpurifier.org/.
+* Added external library `htmlpurifier-4.4.0-standalone` in wrapper `CHTMLPurifier`.
+* Added LICENSE.txt as MIT-license.
+
+
+v0.2.14 (2012-04-16)
+
+* Added filter to format `MCContent` as 'bbcode'.
+* Added function `bbcode2html()` in `src/bootstrap.php`.
+
+
+v0.2.13 (2012-04-13)
+
+* Added filter to format `CMContet` as 'plain', 'html' and 'php'. 'html' and 'php' is disabled in `CMContent` as default. 
+* Added function `makeClickable()` in `src/bootstrap.php` which formats links in text to <a>.
+
+
+v0.2.12 (2012-04-13)
+
+* Added `CCBlog` to display all content of type 'post' in a blog-like list.
+* Added `CCPage` to display content of type 'page' in a singel-page view.
+* Added formatting of DateTime since using function `formatDateTimeDiff()` and theme helper `time_diff()`.
+* Lydia always set timezone to UTC. All time values stored in database is in UTC. 
+
+
+v0.2.11 (2012-04-11) 
+
+* Added handling for content with `CMContent` and `CCContent`.
 
 
 v0.2.10 (2012-03-29) 

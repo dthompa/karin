@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
 /**
  * Set what to show as debug or developer information in the get_debug() theme helper.
  */
-$ka->config['debug']['karin'] = false;
+$ka->config['debug']['lydia'] = false;
 $ka->config['debug']['session'] = false;
 $ka->config['debug']['timer'] = true;
 $ka->config['debug']['db-num-queries'] = true;
@@ -63,7 +63,7 @@ $ka->config['session_key']  = 'karin';
 
 
 /**
- * Define server timezone
+ * Define default server timezone when displaying date and times to the user. All internals are still UTC.
  */
 $ka->config['timezone'] = 'Europe/Stockholm';
 
@@ -93,6 +93,9 @@ $ka->config['controllers'] = array(
   'index'     => array('enabled' => true,'class' => 'CCIndex'),
   'developer' => array('enabled' => true,'class' => 'CCDeveloper'),
   'guestbook' => array('enabled' => true,'class' => 'CCGuestbook'),
+  'content'   => array('enabled' => true,'class' => 'CCContent'),
+  'blog'      => array('enabled' => true,'class' => 'CCBlog'),
+  'page'      => array('enabled' => true,'class' => 'CCPage'),
   'user'      => array('enabled' => true,'class' => 'CCUser'),
   'acp'       => array('enabled' => true,'class' => 'CCAdminControlPanel'),
 );

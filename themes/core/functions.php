@@ -13,7 +13,7 @@ $ka->data['logo']         = theme_url('logo_80x80.png');
 $ka->data['logo_width']   = 80;
 $ka->data['logo_height']  = 80;
 $ka->data['footer'] = <<<EOD
-<p>Karin &copy; Daniel Thompson</p>
+<p>Karin &copy; by Daniel Thompson</p>
 
 <p>Tools: 
 <a href="http://validator.w3.org/check/referer">html5</a>
