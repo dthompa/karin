@@ -1,14 +1,13 @@
-About
+#About
+The Semantic Grid System is a modern approach to the CSS grid. It allows you to set column and gutter widths, choose the number of columns, switch between pixels and percentages, and achieve responsive layouts, all without any unsemantic .grid_x classes in your markup. By default it's powered by [LESS.js](http://lesscss.org/), but also supports [SCSS](http://sass-lang.com/) and [Stylus](http://learnboost.github.com/stylus/).
 
-The Semantic Grid System is a modern approach to the CSS grid. It allows you to set column and gutter widths, choose the number of columns, switch between pixels and percentages, and achieve responsive layouts, all without any unsemantic .grid_x classes in your markup. By default it's powered by LESS.js, but also supports SCSS and Stylus.
+It lives on the web at [Semantic.gs](http://semantic.gs/).
 
-It lives on the web at Semantic.gs.
-Issues
+#Issues
+If you spot any issues or have ideas for improvement, feel free to [file a ticket](https://github.com/twigkit/semantic.gs/issues) or fork on [GitHub](https://github.com/twigkit/semantic.gs) and issue a pull request.
 
-If you spot any issues or have ideas for improvement, feel free to file a ticket or fork on GitHub and issue a pull request.
-License
+#License
+Licensed under Apache 2.0. See [LICENSE](https://github.com/twigkit/semantic.gs/blob/master/LICENSE.txt)
 
-Licensed under Apache 2.0. See LICENSE
-Created by
-
-The Semantic Grid System was built by Tyler Tate at TwigKit.
+#Created by
+The Semantic Grid System was built by [Tyler Tate](http://twitter.com/tylertate/) at [TwigKit](http://twigkit.com/).

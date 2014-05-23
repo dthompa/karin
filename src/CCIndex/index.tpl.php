@@ -15,7 +15,7 @@ to be able to write and create files.</p>
 <code>cd karin; chmod 777 site/data</code>
 </blockquote>
 
-<p>Second, Karin has some modules that need to be initialised. You can do this through a
+<p>Second, Karin has some modules that need to be initialised. You can do this through a 
 controller. Point your browser to the following link.</p>
 <blockquote>
 <a href='<?=create_url('module/install')?>'>module/install</a>

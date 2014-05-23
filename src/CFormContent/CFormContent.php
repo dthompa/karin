@@ -1,12 +1,12 @@
 <?php
 /**
-* A form to manage content.
-*
-* @package KarinCore
-*/
+ * A form to manage content.
+ * 
+ * @package KarinCore
+ */
 class CFormContent extends CForm {
 
-  /**
+ /**
 * Properties
 */
   private $content;
@@ -45,15 +45,12 @@ class CFormContent extends CForm {
     return $content->Save();
   }
   
-  
-  /**
-* Callback to delete the content.
-*/
+   /**
+   * Callback to delete the content.
+   */
   public function DoDelete($form, $content) {
     $content['id'] = $form['id']['value'];
     $content->Delete();
-    CLydia::Instance()->RedirectTo('content');
+    CKarin::Instance()->RedirectTo('content');
   }
-  
-  
 }

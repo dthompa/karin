@@ -1,17 +1,16 @@
 <?php
 /**
-* Helpers for theming, available for all themes in their template files and functions.php.
-* This file is included right before the themes own functions.php
-*/
- 
+ * Helpers for theming, available for all themes in their template files and functions.php.
+ * This file is included right before the themes own functions.php
+ */
 
-/**
-* Get list of tools.
-*/
+ /**
+ * Get list of tools.
+ */
 function get_tools() {
   global $ka;
   return <<<EOD
-<p>Tools:
+<p>Tools: 
 <a href="http://validator.w3.org/check/referer">html5</a>
 <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3">css3</a>
 <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css21">css21</a>
@@ -44,13 +43,13 @@ EOD;
 */
 function get_debug() {
   // Only if debug is wanted.
-  $ka = CKarin::Instance();
+  $ka = CKarin::Instance();  
   if(empty($ka->config['debug'])) {
     return;
   }
   
   // Get the debug output
-  $html = null;
+ $html = null;
   if(isset($ka->config['debug']['db-num-queries']) && $ka->config['debug']['db-num-queries'] && isset($ka->db)) {
     $flash = $ka->session->GetFlash('database_numQueries');
     $flash = $flash ? "$flash + " : null;
@@ -67,16 +66,16 @@ function get_debug() {
   if(isset($ka->config['debug']['timer']) && $ka->config['debug']['timer']) {
     $html .= "<p>Page was loaded in " . round(microtime(true) - $ka->timer['first'], 5)*1000 . " msecs.</p>";
   }
-  if(isset($ka->config['debug']['lydia']) && $ka->config['debug']['lydia']) {
-    $html .= "<hr><h3>Debuginformation</h3><p>The content of CLydia:</p><pre>" . htmlent(print_r($ka, true)) . "</pre>";
+  if(isset($ka->config['debug']['karin']) && $ka->config['debug']['karin']) {
+    $html .= "<hr><h3>Debuginformation</h3><p>The content of CKarin:</p><pre>" . htmlent(print_r($ka, true)) . "</pre>";
   }
   if(isset($ka->config['debug']['session']) && $ka->config['debug']['session']) {
-    $html .= "<hr><h3>SESSION</h3><p>The content of CLydia->session:</p><pre>" . htmlent(print_r($ka->session, true)) . "</pre>";
+    $html .= "<hr><h3>SESSION</h3><p>The content of CKarin->session:</p><pre>" . htmlent(print_r($ka->session, true)) . "</pre>";
     $html .= "<p>The content of \$_SESSION:</p><pre>" . htmlent(print_r($_SESSION, true)) . "</pre>";
   }
   return $html;
+    
 }
-
 
 /**
 * Get messages stored in flash-session.
@@ -91,7 +90,44 @@ function get_messages_from_session() {
       $html .= "<div class='$class'>{$val['message']}</div>\n";
     }
   }
-  return $html;
+}
+/**
+* Create a url by prepending the base_url.
+*/
+function base_url($url=null) {
+  return CKarin::Instance()->request->base_url . trim($url, '/');
+}
+
+/**
+ * Return the current url.
+ */
+function current_url() {
+  return CKarin::Instance()->request->current_url;
+}
+
+/**
+* Prepend the theme_url, which is the url to the current theme directory.
+*
+* @param $url string the url-part to prepend.
+* @returns string the absolute url.
+*/
+function theme_url($url) {
+  return create_url(CKarin::Instance()->themeUrl . "/{$url}");
+}
+
+/**
+* Prepend the theme_parent_url, which is the url to the parent theme directory.
+*
+* @param $url string the url-part to prepend.
+* @returns string the absolute url.
+*/
+function theme_parent_url($url) {
+  return create_url(CKarin::Instance()->themeParentUrl . "/{$url}");
+}
+
+
+function create_url($urlOrController=null, $method=null, $arguments=null) {
+  return CKarin::Instance()->request->CreateUrl($urlOrController, $method, $arguments);
 }
 
 
@@ -112,108 +148,52 @@ function login_menu() {
   return "<nav id='login-menu'>$items</nav>";
 }
 
-
 /**
 * Get a gravatar based on the user's email.
 */
 function get_gravatar($size=null) {
-  return 'http://www.gravatar.com/avatar/' . md5(strtolower(trim(CKarin::Instance()->user['email']))) . '.jpg?r=pg&amp;d=wavatar&amp;' . ($size ? "s=$size" : null);
+  return 'http://www.gravatar.com/avatar/' . md5(strtolower(trim(CKarin::Instance()->user['email']))) . '.jpg?' . ($size ? "s=$size" : null);
 }
 
-
 /**
-* Escape data to make it safe to write in the browser.
-*
-* @param $str string to escape.
-* @returns string the escaped string.
-*/
+ * Escape data to make it safe to write in the browser.
+ *
+ * @param $str string to escape.
+ * @returns string the escaped string.
+ */
 function esc($str) {
   return htmlEnt($str);
 }
 
 
 /**
-* Filter data according to a filter. Uses CMContent::Filter()
-*
-* @param $data string the data-string to filter.
-* @param $filter string the filter to use.
-* @returns string the filtered string.
-*/
+ * Filter data according to a filter. Uses CMContent::Filter()
+ *
+ * @param $data string the data-string to filter.
+ * @param $filter string the filter to use.
+ * @returns string the filtered string.
+ */
 function filter_data($data, $filter) {
   return CMContent::Filter($data, $filter);
 }
 
 
 /**
-* Display diff of time between now and a datetime.
-*
-* @param $start datetime|string
-* @returns string
-*/
+ * Display diff of time between now and a datetime. 
+ *
+ * @param $start datetime|string
+ * @returns string
+ */
 function time_diff($start) {
   return formatDateTimeDiff($start);
 }
 
-
-/**
-* Prepend the base_url.
-*/
-function base_url($url=null) {
-  return CKarin::Instance()->request->base_url . trim($url, '/');
-}
-
-
-/**
-* Create a url to an internal resource.
-*
-* @param string the whole url or the controller. Leave empty for current controller.
-* @param string the method when specifying controller as first argument, else leave empty.
-* @param string the extra arguments to the method, leave empty if not using method.
-*/
-function create_url($urlOrController=null, $method=null, $arguments=null) {
-  return CKarin::Instance()->CreateUrl($urlOrController, $method, $arguments);
-}
-
-
-/**
-* Prepend the theme_url, which is the url to the current theme directory.
-*
-* @param $url string the url-part to prepend.
-* @returns string the absolute url.
-*/
-function theme_url($url) {
-  return create_url(CKarin::Instance()->themeUrl . "/{$url}");
-}
-
-
-/**
-* Prepend the theme_parent_url, which is the url to the parent theme directory.
-*
-* @param $url string the url-part to prepend.
-* @returns string the absolute url.
-*/
-function theme_parent_url($url) {
-  return create_url(CKarin::Instance()->themeParentUrl . "/{$url}");
-}
-
-
-/**
-* Return the current url.
-*/
-function current_url() {
-  return CKarin::Instance()->request->current_url;
-}
-
-
 /**
 * Render all views.
-*
-* @param $region string the region to draw the content in.
 */
 function render_views($region='default') {
   return CKarin::Instance()->views->Render($region);
 }
-
 
 /**
 * Check if region has views. Accepts variable amount of arguments as regions.
@@ -223,3 +203,4 @@ function render_views($region='default') {
 function region_has_content($region='default' /*...*/) {
   return CKarin::Instance()->views->RegionHasView(func_get_args());
 }
+

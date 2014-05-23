@@ -1,14 +1,14 @@
 <?php
 /**
-* A form to login the user profile.
-*
-* @package KarinCore
-*/
+ * A form to login the user profile.
+ * 
+ * @package KarinCore
+ */
 class CFormUserLogin extends CForm {
 
   /**
-* Constructor
-*/
+   * Constructor
+   */
   public function __construct($object) {
     parent::__construct();
     $this->AddElement(new CFormElementText('acronym'))

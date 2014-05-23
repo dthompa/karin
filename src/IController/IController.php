@@ -5,5 +5,5 @@
 * @package KarinCore
 */
 interface IController {
-public function Index();
+  public function Index();
 }

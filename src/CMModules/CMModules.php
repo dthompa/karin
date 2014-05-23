@@ -1,30 +1,27 @@
 <?php
 /**
-* A model for managing Karin modules.
-*
-* @package KarinCore
-*/
+ * A model for managing Karin modules.
+ * 
+ * @package KarinCore
+ */
 class CMModules extends CObject {
 
-  /**
-* Properties
-*/
+	/**
+   * Properties
+   */
   private $karinCoreModules = array('CKarin', 'CDatabase', 'CRequest', 'CViewContainer', 'CSession', 'CObject');
   private $karinCMFModules = array('CForm', 'CCPage', 'CCBlog', 'CMUser', 'CCUser', 'CMContent', 'CCContent', 'CFormUserLogin', 'CFormUserProfile', 'CFormUserCreate', 'CFormContent', 'CHTMLPurifier');
 
-
   /**
-* Constructor
-*/
+   * Constructor
+   */
   public function __construct() { parent::__construct(); }
 
 
   /**
-* A list of all available controllers/methods
-*
-* @returns array list of controllers (key) and an array of methods
-*/
-  public function AvailableControllers() {	
+   * Show a index-page and display what can be done through this controller.
+   */
+   public function AvailableControllers() {        
     $controllers = array();
     foreach($this->config['controllers'] as $key => $val) {
       if($val['enabled']) {
@@ -45,12 +42,13 @@ class CMModules extends CObject {
   }
 
 
-  /**
-* Read and analyse all modules.
-*
-* @returns array with a entry for each module with the module name as the key.
-* Returns boolean false if $src can not be opened.
-*/
+
+ /**
+   * Read and analyse all modules.
+   *
+   * @returns array with a entry for each module with the module name as the key. 
+   *                Returns boolean false if $src can not be opened.
+   */
   public function ReadAndAnalyse() {
     $src = KARIN_INSTALL_PATH.'/src';
     if(!$dir = dir($src)) throw new Exception('Could not open the directory.');
@@ -65,42 +63,41 @@ class CMModules extends CObject {
     return $modules;
   }
   
-
   /**
-* Get info and details about a module.
-*
-* @param $module string with the module name.
-* @returns array with information on the module.
-*/
+   * Get info and details about a module.
+   *
+   * @param $module string with the module name.
+   * @returns array with information on the module.
+   */
   private function GetDetailsOfModule($module) {
     $details = array();
     if(class_exists($module)) {
       $rc = new ReflectionClass($module);
-      $details['name'] = $rc->name;
-      $details['filename'] = $rc->getFileName();
-      $details['doccomment'] = $rc->getDocComment();
-      $details['interface'] = $rc->getInterfaceNames();
-      $details['isController'] = $rc->implementsInterface('IController');
-      $details['isModel'] = preg_match('/^CM[A-Z]/', $rc->name);
-      $details['hasSQL'] = $rc->implementsInterface('IHasSQL');
-      $details['isManageable'] = $rc->implementsInterface('IModule');
-      $details['isLydiaCore'] = in_array($rc->name, $this->karinCoreModules);
-      $details['isLydiaCMF'] = in_array($rc->name, $this->karinCMFModules);
-      $details['publicMethods'] = $rc->getMethods(ReflectionMethod::IS_PUBLIC);
-      $details['protectedMethods'] = $rc->getMethods(ReflectionMethod::IS_PROTECTED);
-      $details['privateMethods'] = $rc->getMethods(ReflectionMethod::IS_PRIVATE);
-      $details['staticMethods'] = $rc->getMethods(ReflectionMethod::IS_STATIC);
+      $details['name']          = $rc->name;
+      $details['filename']      = $rc->getFileName();
+      $details['doccomment']    = $rc->getDocComment();
+      $details['interface']     = $rc->getInterfaceNames();
+      $details['isController']  = $rc->implementsInterface('IController');
+      $details['isModel']       = preg_match('/^CM[A-Z]/', $rc->name);
+      $details['hasSQL']        = $rc->implementsInterface('IHasSQL');
+      $details['isManageable']  = $rc->implementsInterface('IModule');
+      $details['isKarinCore']   = in_array($rc->name, $this->karinCoreModules);
+      $details['isKarinCMF']    = in_array($rc->name, $this->karinCMFModules);
+      $details['publicMethods']     = $rc->getMethods(ReflectionMethod::IS_PUBLIC);
+      $details['protectedMethods']  = $rc->getMethods(ReflectionMethod::IS_PROTECTED);
+      $details['privateMethods']    = $rc->getMethods(ReflectionMethod::IS_PRIVATE);
+      $details['staticMethods']     = $rc->getMethods(ReflectionMethod::IS_STATIC);
     }
     return $details;
   }
   
 
   /**
-* Get info and details about the methods of a module.
-*
-* @param $module string with the module name.
-* @returns array with information on the methods.
-*/
+   * Get info and details about the methods of a module.
+   *
+   * @param $module string with the module name.
+   * @returns array with information on the methods.
+   */
   private function GetDetailsOfModuleMethods($module) {
     $methods = array();
     if(class_exists($module)) {
@@ -109,14 +106,14 @@ class CMModules extends CObject {
       foreach($classMethods as $val) {
         $methodName = $val->name;
         $rm = $rc->GetMethod($methodName);
-        $methods[$methodName]['name'] = $rm->getName();
-        $methods[$methodName]['doccomment'] = $rm->getDocComment();
-        $methods[$methodName]['startline'] = $rm->getStartLine();
-        $methods[$methodName]['endline'] = $rm->getEndLine();
-        $methods[$methodName]['isPublic'] = $rm->isPublic();
-        $methods[$methodName]['isProtected'] = $rm->isProtected();
-        $methods[$methodName]['isPrivate'] = $rm->isPrivate();
-        $methods[$methodName]['isStatic'] = $rm->isStatic();
+        $methods[$methodName]['name']          = $rm->getName();
+        $methods[$methodName]['doccomment']    = $rm->getDocComment();
+        $methods[$methodName]['startline']     = $rm->getStartLine();
+        $methods[$methodName]['endline']       = $rm->getEndLine();
+        $methods[$methodName]['isPublic']      = $rm->isPublic();
+        $methods[$methodName]['isProtected']   = $rm->isProtected();
+        $methods[$methodName]['isPrivate']     = $rm->isPrivate();
+        $methods[$methodName]['isStatic']      = $rm->isStatic();
       }
     }
     ksort($methods, SORT_LOCALE_STRING);
@@ -125,11 +122,11 @@ class CMModules extends CObject {
   
 
   /**
-* Get info and details about a module.
-*
-* @param $module string with the module name.
-* @returns array with information on the module.
-*/
+   * Get info and details about a module.
+   *
+   * @param $module string with the module name.
+   * @returns array with information on the module.
+   */
   public function ReadAndAnalyseModule($module) {
     $details = $this->GetDetailsOfModule($module);
     $details['methods'] = $this->GetDetailsOfModuleMethods($module);
@@ -137,11 +134,11 @@ class CMModules extends CObject {
   }
   
 
-  /**
-* Install all modules.
-*
-* @returns array with a entry for each module and the result from installing it.
-*/
+   /**
+   * Install all modules.
+   *
+   * @returns array with a entry for each module and the result from installing it.
+   */
   public function Install() {
     $allModules = $this->ReadAndAnalyse();
     uksort($allModules, function($a, $b) {
@@ -155,8 +152,8 @@ class CMModules extends CObject {
         $rc = new ReflectionClass($classname);
         $obj = $rc->newInstance();
         $method = $rc->getMethod('Manage');
-        $installed[$classname]['name'] = $classname;
-        $installed[$classname]['result'] = $method->invoke($obj, 'install');
+        $installed[$classname]['name']    = $classname;
+        $installed[$classname]['result']  = $method->invoke($obj, 'install');
       }
     }
     //ksort($installed, SORT_LOCALE_STRING);

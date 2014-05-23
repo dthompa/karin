@@ -1,14 +1,14 @@
 <?php
 /**
-* A form for creating a new user.
-*
-* @package KarinCore
-*/
+ * A form for creating a new user.
+ * 
+ * @package KarinCore
+ */
 class CFormUserCreate extends CForm {
 
   /**
-* Constructor
-*/
+   * Constructor
+   */
   public function __construct($object) {
     parent::__construct();
     $this->AddElement(new CFormElementText('acronym', array('required'=>true)))

@@ -129,8 +129,10 @@ $ka->config['menus'] = array(
   ),
   'my-navbar' => array(
     'home' => array('label'=>'About Me', 'url'=>'my'),
-    'blog' => array('label'=>'My Blog', 'url'=>'my/blog'),
-    'guestbook' => array('label'=>'Guestbook', 'url'=>'my/guestbook'),
+    'modules' => array('label'=>'Modules', 'url'=>'module'),
+    'content' => array('label'=>'Content', 'url'=>'content'),
+    'guestbook' => array('label'=>'Guestbook', 'url'=>'guestbook'),
+    'blog' => array('label'=>'Blog', 'url'=>'blog'),
   ),
 );
 
@@ -159,6 +161,10 @@ $ka->config['menus'] = array(
 * The name of the stylesheet is also appended to the data-array, as 'stylesheet' and made
 * available to the template files.
 */
+/**
+			* Settings for the theme.
+			*/
+			
 $ka->config['theme'] = array(
   'path' => 'site/themes/mytheme',
   //'path' => 'themes/grid',

@@ -2,7 +2,7 @@
 /**
  * A wrapper for HTMLPurifier by Edward Z. Yang, http://htmlpurifier.org/
  * 
- * @package KarinCore
+ * @package GlantzCore
  */
 class CHTMLPurifier {
 
@@ -20,7 +20,7 @@ class CHTMLPurifier {
    */
    public static function Purify($text) {   
     if(!self::$instance) {
-      require_once(__DIR__.'/htmlpurifier-4.4.0-standalone/HTMLPurifier.standalone.php');
+      require_once(__DIR__.'/htmlpurifier-4.6.0-standalone/HTMLPurifier.standalone.php');
       $config = HTMLPurifier_Config::createDefault();
       $config->set('Cache.DefinitionImpl', null);
       self::$instance = new HTMLPurifier($config);

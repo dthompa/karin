@@ -1,23 +1,22 @@
 <?php
 /**
-* A blog controller to display a blog-like list of all content labelled as "post".
-*
-* @package KarinCore
-*/
+ * A blog controller to display a blog-like list of content considered blog posts.
+ * 
+ * @package KarinCore
+ */
 class CCBlog extends CObject implements IController {
 
-
   /**
-* Constructor
-*/
+   * Constructor
+   */
   public function __construct() {
     parent::__construct();
   }
 
 
   /**
-* Display all content of the type "post".
-*/
+   * Display all content of the type "post".
+   */
   public function Index() {
     $content = new CMContent();
     $this->views->SetTitle('Blog')
@@ -27,4 +26,4 @@ class CCBlog extends CObject implements IController {
   }
 
 
-}
+} 
